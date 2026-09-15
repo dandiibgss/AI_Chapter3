@@ -50,14 +50,18 @@ steps = [current_state]
 while current_state != goal:
     next_step_index = np.where(Q[current_state,] == np.max(Q[current_state,]))[1]
     if next_step_index.shape[0] > 1:
-        next_step_index = int(np.random.choice(next_step_index, size=1))
+        next_step_index = int(np.random.choice(next_step_index))
     else:
-        next_step_index = int(next_step_index)
+        next_step_index = int(next_step_index[0])
     steps.append(next_step_index)
     current_state = next_step_index
 
 # Display Results ===================================================
 print("Most efficient path:")
 print(steps)
+plt.figure()
 plt.plot(scores)
+plt.title("Convergence of Q-learning (8 states)")
+plt.xlabel("Iteration")
+plt.ylabel("Score")
 plt.show()
