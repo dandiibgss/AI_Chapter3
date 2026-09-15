@@ -1,23 +1,21 @@
-import sys
+# Example 3.15 Linear Regression
 import matplotlib.pyplot as plt
-import numpy as np
-import statsmodels.api as sm
+from scipy import stats
 
 x = [0, 1, 2, 3, 4]
 y = [3, 5, 5, 6, 7]
 
-x1 = sm.add_constant(x)
-model = sm.OLS(y, x1)
-results = model.fit()
+slope, intercept, r, p, std_err = stats.linregress(x, y)
 
-# Cetak hasil ke terminal dan paksa pencetakan langsung (flush)
-print(np.array(results.params), flush=True)
-print(results.summary(), flush=True)
+print("slope: ", slope)
+print("intercept: ", intercept)
 
-# Plot grafik setelah output teks tercetak
-y_pred = results.predict(x1)
+# Figure 3.13: Example of logistic regression
+def myfunc(x):
+    return slope * x + intercept
+
+mymodel = list(map(myfunc, x))
+
 plt.scatter(x, y)
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.plot(x, y_pred, "r")
+plt.plot(x, mymodel)
 plt.show()
